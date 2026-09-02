@@ -1,0 +1,76 @@
+.container {
+  flex: 1;
+  padding: 0;
+}
+
+.titulo {
+    font-family: 'Georgia', serif;
+    color: #2d6a4f;
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #74c69d;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.nome {
+    font-family: 'Georgia', serif;
+    color: #1b4332;
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+}
+
+.especie {
+    color: #74c69d;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.tag {
+    background-color: #f0faf4;
+    border: 1px solid #74c69d;
+    color: #2d6a4f;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.descricao {
+    color: #555;
+    font-size: 0.9rem;
+    border-top: 1px solid #f0faf4;
+    padding-top: 10px;
+    margin-top: 4px;
+}
+
+.mensagem {
+    text-align: center;
+    color: #74c69d;
+    font-size: 1rem;
+    margin-top: 20px;
+}

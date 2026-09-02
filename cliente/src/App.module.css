@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pagina {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0faf4 0%, #f8f4e3 100%);
+  padding: 24px;
+}
+
+.conteudo {
+  display: flex;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: flex-start;
+}

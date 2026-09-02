@@ -1,0 +1,93 @@
+.container {
+  width: 360px;
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.titulo {
+  font-family: 'Georgia', serif;
+  color: #2d6a4f;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2d6a4f;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  padding: 8px 12px;
+  border: 1px solid #74c69d;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: #2d6a4f;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.botao {
+  padding: 10px;
+  background-color: #2d6a4f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 4px;
+}
+
+.botao:hover {
+  background-color: #1b4332;
+}
+
+.botao:disabled {
+  background-color: #74c69d;
+  cursor: not-allowed;
+}
+
+.sucesso {
+  color: #2d6a4f;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.erro {
+  color: #c0392b;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
+}
