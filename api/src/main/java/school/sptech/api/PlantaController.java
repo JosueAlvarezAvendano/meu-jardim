@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/plantas")
 public class PlantaController {
@@ -72,8 +73,7 @@ public class PlantaController {
             return ResponseEntity.status(400).build();
         }
 
-        String sql = "INSERT INTO planta (nome, especie, tipo, frequenciaRega, nivelLuz, descricao) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO planta (nome, especie, tipo, frequenciaRega, nivelLuz, descricao) VALUES (?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
