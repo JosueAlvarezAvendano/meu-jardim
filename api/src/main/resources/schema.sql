@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS meu_jardim;
-USE meu_jardim;
-
 CREATE TABLE IF NOT EXISTS planta (
     id             INT AUTO_INCREMENT PRIMARY KEY,
     nome           VARCHAR(100) NOT NULL,
