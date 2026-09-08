@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Header from "./components/Header/Header";
 import FormPlanta from "./components/FormPlanta/FormPlanta";
 import ListaPlanta from "./components/ListaPlanta/ListaPlanta";
 import styles from "./App.module.css";
@@ -31,6 +32,7 @@ function App() {
 
   return (
   <div className={styles.pagina}>
+    <Header />
     <div className={styles.conteudo}>
       <FormPlanta onPlantaCadastrada={buscarPlantas} />
       <ListaPlanta plantas={plantas} loading={loading} />
