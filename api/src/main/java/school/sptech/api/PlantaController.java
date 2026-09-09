@@ -94,4 +94,24 @@ public class PlantaController {
 
         return ResponseEntity.status(201).body(novaPlanta);
     }
+
+    // DELETE /plantas/{id} — deleta uma planta pelo id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+
+        String sqlBusca = "SELECT * FROM planta WHERE id = ?";
+        List<Planta> plantas = jdbcTemplate.query(sqlBusca, new BeanPropertyRowMapper<>(Planta.class), id);
+
+        // Se não encontrar, retorna 404
+        if (plantas.isEmpty()) {
+            return ResponseEntity.status(404).build();
+        }
+
+        String sqlDelete = "DELETE FROM planta WHERE id = ?";
+        jdbcTemplate.update(sqlDelete, id);
+
+        // 204 = sucesso sem conteúdo para retornar
+        return ResponseEntity.status(204).build();
+    }
+
 }
