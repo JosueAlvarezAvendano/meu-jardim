@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/plantas")
 public class PlantaController {
@@ -56,7 +56,6 @@ public class PlantaController {
     @PostMapping
     public ResponseEntity<Planta> cadastrar(@RequestBody Planta novaPlanta) {
 
-        // Validações — nenhum campo obrigatório pode ser vazio
         if (novaPlanta.getNome() == null || novaPlanta.getNome().isBlank()) {
             return ResponseEntity.status(400).build();
         }
@@ -102,7 +101,6 @@ public class PlantaController {
         String sqlBusca = "SELECT * FROM planta WHERE id = ?";
         List<Planta> plantas = jdbcTemplate.query(sqlBusca, new BeanPropertyRowMapper<>(Planta.class), id);
 
-        // Se não encontrar, retorna 404
         if (plantas.isEmpty()) {
             return ResponseEntity.status(404).build();
         }
@@ -110,7 +108,6 @@ public class PlantaController {
         String sqlDelete = "DELETE FROM planta WHERE id = ?";
         jdbcTemplate.update(sqlDelete, id);
 
-        // 204 = sucesso sem conteúdo para retornar
         return ResponseEntity.status(204).build();
     }
 

@@ -1,6 +1,26 @@
 import styles from "./ListaPlanta.module.css";
 
-function ListaPlanta({ plantas, loading }) {
+function ListaPlanta({ plantas, loading, onPlantaDeletada }) {
+
+    async function deletarPlanta(id, nome) {
+        const confirmado = confirm(`Tem certeza que deseja excluir "${nome}"?`);
+
+        if (!confirmado) return;
+
+        try {
+            const resposta = await fetch(`http://localhost:8080/plantas/${id}`, {
+                method: "DELETE"
+            });
+
+            if (resposta.status === 204) {
+                onPlantaDeletada(); // avisa o App para atualizar a lista
+            } else {
+                alert("Erro ao excluir a planta.");
+            }
+        } catch (error) {
+            alert("Erro ao conectar com a API.");
+        }
+    }
 
     if (loading) {
         return <p className={styles.mensagem}>Carregando plantas...</p>;
@@ -17,8 +37,18 @@ function ListaPlanta({ plantas, loading }) {
             <div className={styles.lista}>
                 {plantas.map(planta => (
                     <div key={planta.id} className={styles.card}>
-                        <h3 className={styles.nome}>{planta.nome}</h3>
-                        <p className={styles.especie}>{planta.especie}</p>
+                        <div className={styles.cardHeader}>
+                            <div>
+                                <h3 className={styles.nome}>{planta.nome}</h3>
+                                <p className={styles.especie}>{planta.especie}</p>
+                            </div>
+                            <button
+                                className={styles.botaoDeletar}
+                                onClick={() => deletarPlanta(planta.id, planta.nome)}
+                            >
+                                🗑️
+                            </button>
+                        </div>
                         <div className={styles.tags}>
                             <span className={styles.tag}>{planta.tipo}</span>
                             <span className={styles.tag}>💧 {planta.frequenciaRega}</span>

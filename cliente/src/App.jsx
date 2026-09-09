@@ -35,7 +35,7 @@ function App() {
     <Header />
     <div className={styles.conteudo}>
       <FormPlanta onPlantaCadastrada={buscarPlantas} />
-      <ListaPlanta plantas={plantas} loading={loading} />
+      <ListaPlanta plantas={plantas} loading={loading} onPlantaDeletada={buscarPlantas} />
     </div>
   </div>
 );
