@@ -22,11 +22,13 @@ Aplicação web para cadastro e consulta de plantas pessoais. O usuário pode re
 ---
 
 ## 📁 Estrutura do Projeto
-meu-jardim/
-├── api/ → Back-end Spring Boot
-├── cliente/ → Front-end React
-└── README.md
 
+```
+meu-jardim/
+├── api/        → Back-end Spring Boot
+├── cliente/    → Front-end React
+└── README.md
+```
 
 ---
 
@@ -41,13 +43,19 @@ meu-jardim/
 ### Back-end
 
 1. Entre na pasta `api/`
-2. Crie um arquivo `.env` com suas credenciais:
-
-DB_URL=jdbc:mysql://localhost:3306/
-DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
-
-3. Rode a aplicação — o banco e a tabela são criados automaticamente
+2. Copie o arquivo de exemplo e renomeie:
+```
+src/main/resources/application.properties.example
+→
+src/main/resources/application.properties
+```
+3. Preencha com suas credenciais do MySQL:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/meu_jardim?createDatabaseIfNotExist=true
+spring.datasource.username=SEU_USUARIO
+spring.datasource.password=SUA_SENHA
+```
+4. Rode a aplicação — o banco e a tabela são criados automaticamente:
 ```bash
 ./mvnw spring-boot:run
 ```
