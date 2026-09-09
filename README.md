@@ -83,6 +83,7 @@ O site estará disponível em `http://localhost:5173`
 | GET | `/plantas` | Lista todas as plantas |
 | GET | `/plantas/{id}` | Busca uma planta pelo ID |
 | POST | `/plantas` | Cadastra uma nova planta |
+| DELETE | `/plantas/{id}` | Remove uma planta pelo ID |
 
 ### Exemplo de requisição POST
 
@@ -111,6 +112,12 @@ O site estará disponível em `http://localhost:5173`
     "descricao": "Fica na varanda"
   }
 ]
+```
+
+### Exemplo de resposta DELETE
+
+```
+204 No Content
 ```
 
 ---
