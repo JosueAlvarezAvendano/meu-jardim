@@ -57,6 +57,16 @@ public class PlantaController {
             return ResponseEntity.status(400).build();
         }
 
+        if (TipoPlanta.fromDescricao(novaPlanta.getTipo()) == null) {
+            return ResponseEntity.status(400).build();
+        }
+        if (FrequenciaRega.fromDescricao(novaPlanta.getFrequenciaRega()) == null) {
+            return ResponseEntity.status(400).build();
+        }
+        if (NivelLuz.fromDescricao(novaPlanta.getNivelLuz()) == null) {
+            return ResponseEntity.status(400).build();
+        }
+
         String sql = "INSERT INTO planta (nome, especie, tipo, frequenciaRega, nivelLuz, descricao) VALUES (?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
