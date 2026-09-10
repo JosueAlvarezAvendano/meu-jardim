@@ -81,7 +81,6 @@ O site estará disponível em `http://localhost:5173`
 | Método | Rota | Descrição |
 |--------|------|-----------|
 | GET | `/plantas` | Lista todas as plantas |
-| GET | `/plantas/{id}` | Busca uma planta pelo ID |
 | POST | `/plantas` | Cadastra uma nova planta |
 | DELETE | `/plantas/{id}` | Remove uma planta pelo ID |
 

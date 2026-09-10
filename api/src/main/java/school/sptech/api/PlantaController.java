@@ -37,21 +37,6 @@ public class PlantaController {
         return ResponseEntity.status(200).body(plantas);
     }
 
-    // GET /plantas/{id} — busca uma planta pelo id
-    @GetMapping("/{id}")
-    public ResponseEntity<Planta> buscarPorId(@PathVariable Integer id) {
-
-        String sql = "SELECT * FROM planta WHERE id = ?";
-
-        List<Planta> plantas = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Planta.class), id);
-
-        if (plantas.isEmpty()) {
-            return ResponseEntity.status(404).build();
-        }
-
-        return ResponseEntity.status(200).body(plantas.get(0));
-    }
-
     // POST /plantas — cadastra uma nova planta
     @PostMapping
     public ResponseEntity<Planta> cadastrar(@RequestBody Planta novaPlanta) {
@@ -98,10 +83,10 @@ public class PlantaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id) {
 
-        String sqlBusca = "SELECT * FROM planta WHERE id = ?";
-        List<Planta> plantas = jdbcTemplate.query(sqlBusca, new BeanPropertyRowMapper<>(Planta.class), id);
+        String sqlCount = "SELECT COUNT(*) FROM planta WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(sqlCount, Integer.class, id);
 
-        if (plantas.isEmpty()) {
+        if (count == 0) {
             return ResponseEntity.status(404).build();
         }
 
