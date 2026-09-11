@@ -121,4 +121,50 @@ public class PlantaController {
         return ResponseEntity.status(200).body(plantas);
     }
 
+    // PUT /plantas/{id} — atualiza uma planta pelo id
+    @PutMapping("/{id}")
+    public ResponseEntity<Planta> atualizar(@PathVariable Integer id, @RequestBody Planta plantaAtualizada) {
+
+        String sqlCount = "SELECT COUNT(*) FROM planta WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(sqlCount, Integer.class, id);
+
+        if (count == 0) {
+            return ResponseEntity.status(404).build();
+        }
+
+        if (plantaAtualizada.getNome() == null || plantaAtualizada.getNome().isBlank()) {
+            return ResponseEntity.status(400).build();
+        }
+        if (plantaAtualizada.getEspecie() == null || plantaAtualizada.getEspecie().isBlank()) {
+            return ResponseEntity.status(400).build();
+        }
+        if (plantaAtualizada.getTipo() == null || plantaAtualizada.getTipo().isBlank()) {
+            return ResponseEntity.status(400).build();
+        }
+        if (plantaAtualizada.getFrequenciaRega() == null || plantaAtualizada.getFrequenciaRega().isBlank()) {
+            return ResponseEntity.status(400).build();
+        }
+        if (plantaAtualizada.getNivelLuz() == null || plantaAtualizada.getNivelLuz().isBlank()) {
+            return ResponseEntity.status(400).build();
+        }
+
+        if (TipoPlanta.fromDescricao(plantaAtualizada.getTipo()) == null) {
+            return ResponseEntity.status(400).build();
+        }
+        if (FrequenciaRega.fromDescricao(plantaAtualizada.getFrequenciaRega()) == null) {
+            return ResponseEntity.status(400).build();
+        }
+        if (NivelLuz.fromDescricao(plantaAtualizada.getNivelLuz()) == null) {
+            return ResponseEntity.status(400).build();
+        }
+
+        String sql = "UPDATE planta SET nome = ?, especie = ?, tipo = ?, frequenciaRega = ?, nivelLuz = ?, descricao = ? WHERE id = ?";
+
+        jdbcTemplate.update(sql, plantaAtualizada.getNome(), plantaAtualizada.getEspecie(), plantaAtualizada.getTipo(), plantaAtualizada.getFrequenciaRega(), plantaAtualizada.getNivelLuz(), plantaAtualizada.getDescricao(), id);
+
+        plantaAtualizada.setId(id);
+
+        return ResponseEntity.status(200).body(plantaAtualizada);
+    }
+
 }
