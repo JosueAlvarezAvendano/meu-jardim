@@ -106,4 +106,19 @@ public class PlantaController {
         return ResponseEntity.status(204).build();
     }
 
+    // GET /plantas/buscar?nome=nome — busca plantas pelo nome
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Planta>> buscarPorNome(@RequestParam String nome) {
+
+        String sql = "SELECT * FROM planta WHERE nome LIKE ?";
+
+        List<Planta> plantas = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Planta.class), "%" + nome + "%");
+
+        if (plantas.isEmpty()) {
+            return ResponseEntity.status(204).build();
+        }
+
+        return ResponseEntity.status(200).body(plantas);
+    }
+
 }
