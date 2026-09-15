@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./FormPlanta.module.css";
 
-function FormPlanta({ onPlantaCadastrada }) {
+function FormPlanta({ onPlantaCadastrada, plantaEditando, setPlantaEditando }) {
 
     const [form, setForm] = useState({
         nome: "",
@@ -12,8 +12,23 @@ function FormPlanta({ onPlantaCadastrada }) {
         descricao: ""
     });
 
-    const [status, setStatus] = useState(null); // null, "sucesso", "erro"
+    const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (plantaEditando) {
+            setForm({
+                nome: plantaEditando.nome,
+                especie: plantaEditando.especie,
+                tipo: plantaEditando.tipo,
+                frequenciaRega: plantaEditando.frequenciaRega,
+                nivelLuz: plantaEditando.nivelLuz,
+                descricao: plantaEditando.descricao || ""
+            });
+        } else {
+            setForm({ nome: "", especie: "", tipo: "", frequenciaRega: "", nivelLuz: "", descricao: "" });
+        }
+    }, [plantaEditando]);
 
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,17 +39,25 @@ function FormPlanta({ onPlantaCadastrada }) {
         setLoading(true);
         setStatus(null);
 
+        // Se tem plantaEditando → PUT, senão → POST
+        const url = plantaEditando
+            ? `http://localhost:8080/plantas/${plantaEditando.id}`
+            : "http://localhost:8080/plantas";
+
+        const method = plantaEditando ? "PUT" : "POST";
+
         try {
-            const resposta = await fetch("http://localhost:8080/plantas", {
-                method: "POST",
+            const resposta = await fetch(url, {
+                method: method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form)
             });
 
-            if (resposta.status === 201) {
+            if (resposta.status === 201 || resposta.status === 200) {
                 setStatus("sucesso");
                 setForm({ nome: "", especie: "", tipo: "", frequenciaRega: "", nivelLuz: "", descricao: "" });
-                onPlantaCadastrada(); // avisa o App para atualizar a lista
+                setPlantaEditando(null); // volta para modo cadastro
+                onPlantaCadastrada();
             } else {
                 setStatus("erro");
             }
@@ -47,10 +70,12 @@ function FormPlanta({ onPlantaCadastrada }) {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.titulo}>Cadastrar Planta</h2>
+            {/* Título muda dependendo do modo */}
+            <h2 className={styles.titulo}>
+                {plantaEditando ? "Editar Planta" : "Cadastrar Planta"}
+            </h2>
 
             <form onSubmit={handleSubmit} className={styles.form}>
-
                 <div className={styles.campo}>
                     <label>Nome</label>
                     <input name="nome" value={form.nome} onChange={handleChange} placeholder="Ex: Samambaia" required />
@@ -98,12 +123,24 @@ function FormPlanta({ onPlantaCadastrada }) {
                 </div>
 
                 <button type="submit" className={styles.botao} disabled={loading}>
-                    {loading ? "Cadastrando..." : "Cadastrar"}
+                    {loading ? "Salvando..." : plantaEditando ? "Salvar alterações" : "Cadastrar"}
                 </button>
 
-                {status === "sucesso" && <p className={styles.sucesso}>Planta cadastrada com sucesso!</p>}
-                {status === "erro" && <p className={styles.erro}>Erro ao cadastrar. Verifique os campos.</p>}
+                {/* Botão de cancelar edição */}
+                {plantaEditando && (
+                    <button
+                        type="button"
+                        className={styles.botaoCancelar}
+                        onClick={() => setPlantaEditando(null)}
+                    >
+                        Cancelar
+                    </button>
+                )}
 
+                {status === "sucesso" && <p className={styles.sucesso}>
+                    {plantaEditando ? "Planta atualizada com sucesso!" : "Planta cadastrada com sucesso!"}
+                </p>}
+                {status === "erro" && <p className={styles.erro}>Erro ao salvar. Verifique os campos.</p>}
             </form>
         </div>
     );

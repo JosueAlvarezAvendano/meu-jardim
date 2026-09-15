@@ -95,3 +95,22 @@
 .botaoDeletar:hover {
     background-color: rgba(192, 57, 43, 0.1);
 }
+
+.botoes {
+    display: flex;
+    gap: 8px;
+}
+
+.botaoEditar {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.botaoEditar:hover {
+    background-color: rgba(45, 106, 79, 0.1);
+}

@@ -9,6 +9,8 @@ function App() {
   const [plantas, setPlantas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [termoBusca, setTermoBusca] = useState("");
+  const [plantaEditando, setPlantaEditando] = useState(null);
+
 
   async function buscarPlantas() {
     setLoading(true);
@@ -65,7 +67,11 @@ function App() {
     <div className={styles.pagina}>
         <Header />
         <div className={styles.conteudo}>
-            <FormPlanta onPlantaCadastrada={buscarPlantas} />
+            <FormPlanta
+                onPlantaCadastrada={buscarPlantas}
+                plantaEditando={plantaEditando}
+                setPlantaEditando={setPlantaEditando}
+            />
             <div className={styles.ladoDireito}>
                 <input
                     className={styles.campoBusca}
@@ -78,6 +84,7 @@ function App() {
                     plantas={plantas}
                     loading={loading}
                     onPlantaDeletada={buscarPlantas}
+                    onPlantaEditar={setPlantaEditando}
                 />
             </div>
         </div>

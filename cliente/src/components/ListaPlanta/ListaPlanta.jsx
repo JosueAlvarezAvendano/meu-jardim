@@ -1,6 +1,6 @@
 import styles from "./ListaPlanta.module.css";
 
-function ListaPlanta({ plantas, loading, onPlantaDeletada }) {
+function ListaPlanta({ plantas, loading, onPlantaDeletada, onPlantaEditar }) {
 
     async function deletarPlanta(id, nome) {
         const confirmado = confirm(`Tem certeza que deseja excluir "${nome}"?`);
@@ -42,12 +42,16 @@ function ListaPlanta({ plantas, loading, onPlantaDeletada }) {
                                 <h3 className={styles.nome}>{planta.nome}</h3>
                                 <p className={styles.especie}>{planta.especie}</p>
                             </div>
-                            <button
-                                className={styles.botaoDeletar}
-                                onClick={() => deletarPlanta(planta.id, planta.nome)}
-                            >
-                                🗑️
-                            </button>
+                            <div className={styles.botoes}>
+                                <button
+                                    className={styles.botaoEditar}
+                                    onClick={() => onPlantaEditar(planta)}>✏️
+                                </button>
+                                <button
+                                    className={styles.botaoDeletar}
+                                    onClick={() => deletarPlanta(planta.id, planta.nome)}>🗑️
+                                </button>
+                            </div>
                         </div>
                         <div className={styles.tags}>
                             <span className={styles.tag}>{planta.tipo}</span>
